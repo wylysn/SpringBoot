@@ -1,14 +1,19 @@
 package com.purang.SpringBoot.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.purang.SpringBoot.model.ResponseData;
+import com.purang.SpringBoot.domain.ResponseData;
 
 @Controller
 @RequestMapping("/error")
-public class ErrorController {
+public class GlobleErrorController implements ErrorController {
+	private static final String PATH = "/error";
+	
 	@RequestMapping(produces="text/html", value="400")
     public String badRequestOfHtml() {
         return "error/400";
@@ -20,6 +25,7 @@ public class ErrorController {
 		ResponseData data = new ResponseData();
 		data.setCode("400");
 		data.setSuccess("false");
+		data.setMsg("400错误!");
 		data.setData("");
         return data;
     }
@@ -33,10 +39,11 @@ public class ErrorController {
 	//针对rest api,返回json数据
 	@RequestMapping(value="404")
 	@ResponseBody
-    public ResponseData notFound() {
+    public ResponseData notFound(HttpServletRequest request) {
 		ResponseData data = new ResponseData();
 		data.setCode("404");
 		data.setSuccess("false");
+		data.setMsg("404错误!");
 		data.setData("");
         return data;
     }
@@ -46,4 +53,8 @@ public class ErrorController {
         return "error/500";
     }
 	
+	@Override
+    public String getErrorPath() {
+        return PATH;
+    }
 }
