@@ -6,8 +6,8 @@
     <!-- 日志文件目录和压缩文件目录配置 -->
     <Properties>
     		<!-- 需要权限验证的目录不能自动创建 -->
-        <Property name="fileName">/Users/log/spring_log</Property>
-        <Property name="fileGz">/Users/log/spring_log/7z</Property>
+        <Property name="fileName">/Users/wangyilu/log/spring_log</Property>
+        <Property name="fileGz">/Users/wangyilu/log/spring_log/7z</Property>
     </Properties>
     <Appenders>
         <!-- 输出控制台日志的配置 -->

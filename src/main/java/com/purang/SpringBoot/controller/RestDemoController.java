@@ -40,4 +40,12 @@ public class RestDemoController {
 		return json;
 	}
 	
+	@RequestMapping("/testAround")  
+    User testAroundService(String key){  
+		User user = new User();
+		user.setId(new Long(123));
+		user.setName("testname");
+		return user; 
+    }
+	
 }
