@@ -4,7 +4,12 @@ import java.util.List;
 
 import com.purang.SpringBoot.domain.UserEntity;
 
-public interface UserMapper {
+/**
+ * 单数据源使用
+ * @author imac
+ *
+ */
+public interface UserDao {
 	List<UserEntity> getAll();
 	
 	UserEntity getOne(Long id);

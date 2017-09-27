@@ -11,7 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import com.purang.SpringBoot.dao.UserMapper;
+import com.purang.SpringBoot.dao.read.UserReadDao;
+import com.purang.SpringBoot.dao.write.UserWriteDao;
 import com.purang.SpringBoot.enums.UserSexEnum;
 
 @RunWith(SpringRunner.class)
@@ -40,21 +41,27 @@ public class UserEntityTests {
 //		Assert.assertEquals(20, u.getAge().intValue());
 //	}
 	
+//	@Autowired
+//	private UserDao UserMapper;
+	
 	@Autowired
-	private UserMapper UserMapper;
+	private UserWriteDao userWriteDao;
+	
+	@Autowired
+	private UserReadDao userReadDao;
 
 	@Test
 	public void testInsert() throws Exception {
-		UserMapper.insert(new UserEntity("aa", "a123456", UserSexEnum.MAN));
-		UserMapper.insert(new UserEntity("bb", "b123456", UserSexEnum.WOMAN));
-		UserMapper.insert(new UserEntity("cc", "b123456", UserSexEnum.WOMAN));
+		userWriteDao.insert(new UserEntity("aa", "a123456", UserSexEnum.MAN));
+		userWriteDao.insert(new UserEntity("bb", "b123456", UserSexEnum.WOMAN));
+		userWriteDao.insert(new UserEntity("cc", "b123456", UserSexEnum.WOMAN));
 
-		Assert.assertEquals(3, UserMapper.getAll().size());
+		Assert.assertEquals(3, userReadDao.getAll().size());
 	}
 
 	@Test
 	public void testQuery() throws Exception {
-		List<UserEntity> users = UserMapper.getAll();
+		List<UserEntity> users = userReadDao.getAll();
 		if(users==null || users.size()==0){
 			System.out.println("is null");
 		}else{
@@ -65,10 +72,10 @@ public class UserEntityTests {
 	
 	@Test
 	public void testUpdate() throws Exception {
-		UserEntity user = UserMapper.getOne(6l);
+		UserEntity user = userReadDao.getOne(6l);
 		System.out.println(user.toString());
 		user.setNickName("neo");
-		UserMapper.update(user);
-		Assert.assertTrue(("neo".equals(UserMapper.getOne(6l).getNickName())));
+		userWriteDao.update(user);
+		Assert.assertTrue(("neo".equals(userReadDao.getOne(6l).getNickName())));
 	}
 }

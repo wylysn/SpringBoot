@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.purang.SpringBoot.dao.UserDao" >
+<mapper namespace="com.purang.SpringBoot.dao.write.UserWriteDao" >
     <resultMap id="BaseResultMap" type="com.purang.SpringBoot.domain.UserEntity" >
         <id column="id" property="id" jdbcType="BIGINT" />
         <result column="userName" property="userName" jdbcType="VARCHAR" />
@@ -12,19 +12,6 @@
     <sql id="Base_Column_List" >
         id, userName, passWord, user_sex, nick_name
     </sql>
-
-    <select id="getAll" resultMap="BaseResultMap"  >
-       SELECT 
-       <include refid="Base_Column_List" />
-	   FROM users
-    </select>
-
-    <select id="getOne" parameterType="java.lang.Long" resultMap="BaseResultMap" >
-        SELECT 
-       <include refid="Base_Column_List" />
-	   FROM users
-	   WHERE id = #{id}
-    </select>
 
     <insert id="insert" parameterType="com.purang.SpringBoot.domain.UserEntity" >
        INSERT INTO 
