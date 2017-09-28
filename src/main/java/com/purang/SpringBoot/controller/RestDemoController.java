@@ -6,30 +6,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.purang.SpringBoot.domain.ResponseData;
-import com.purang.SpringBoot.domain.User;
+import com.purang.SpringBoot.domain.UserEntity;
 
 @RestController
 @RequestMapping("/json")
 public class RestDemoController {
 
 	@RequestMapping("/first")
-	User home() {
-		User user = new User();
+	UserEntity home() {
+		UserEntity user = new UserEntity();
 		user.setId(new Long(123));
-		user.setName("testname");
+		user.setUserName("testname");
 		return user;
 	}
 	
 	@RequestMapping("/second")
 	ResponseData homeBack() {
-		ArrayList<User> list = new ArrayList<>();
+		ArrayList<UserEntity> list = new ArrayList<>();
 		
-		User user1 = new User();
+		UserEntity user1 = new UserEntity();
 		user1.setId(new Long(1));
-		user1.setName("testname1");
-		User user2 = new User();
+		user1.setUserName("testname1");
+		UserEntity user2 = new UserEntity();
 		user2.setId(new Long(2));
-		user2.setName("testname2");
+		user2.setUserName("testname2");
 		list.add(user1);
 		list.add(user2);
 		
@@ -41,10 +41,10 @@ public class RestDemoController {
 	}
 	
 	@RequestMapping("/testAround")  
-    User testAroundService(String key){  
-		User user = new User();
+	UserEntity testAroundService(String key){  
+		UserEntity user = new UserEntity();
 		user.setId(new Long(123));
-		user.setName("testname");
+		user.setUserName("testname");
 		return user; 
     }
 	

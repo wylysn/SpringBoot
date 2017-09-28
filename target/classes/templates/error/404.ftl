@@ -8,6 +8,14 @@
         <p style="text-align:center;">您正在寻找的页面不存在或发生其他错误。</p>
         <a style="text-align:center;" href="/">回到网站首页</a> 
     </section>
+    <!--
+    <div style="border-style: solid; border-width: thick;">
+    		<video preload="yes" autoplay loop width="100%" height="auto" >
+            <source src="http://clips.vorwaerts-gmbh.de/VfE.webm" type="video/webm" controls="controls">
+            您的浏览器不支持当前格式的播放
+		</video>
+    </div>
+    -->
 </body>
 
 </html>
