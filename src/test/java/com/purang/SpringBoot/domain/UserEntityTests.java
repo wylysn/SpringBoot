@@ -52,12 +52,12 @@ public class UserEntityTests {
 	
 	@Test
 	public void testInsert() throws Exception {
-//		userService.insertUser(new UserEntity("aa", "a123456", UserSexEnum.MAN));
+		userService.insertUser(new UserEntity("aa", "a123456", UserSexEnum.MAN));
 		
-		userService.readAndWirte(new UserEntity("aa", "a123456", UserSexEnum.MAN));
+//		userService.readAndWirte(new UserEntity("aa", "a123456", UserSexEnum.MAN));
 
-//		UserEntity userEntity = userService.findById(new Long(40));
-//		System.out.println(userEntity);
+		UserEntity userEntity = userService.findById(new Long(40));
+		System.out.println(userEntity);
 //		
 //		UserEntity userEntity2 = userService.findById(new Long(40));
 //		System.out.println(userEntity2);
