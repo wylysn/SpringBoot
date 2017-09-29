@@ -51,6 +51,13 @@
     </Appenders>
     <!-- 全局配置，默认所有的Logger都继承此配置 -->
     <Loggers>
+    		<!-- 打印sql，上面的ThresholdFilter的level也要设置为trace,现在是通过SqlPrintInterceptor实现 -->
+    		<!--  
+    		<logger name="com.purang.SpringBoot.dao" level="DEBUG" />
+		<logger name="org.mybatis">
+    			<level value="TRACE"/>
+		</logger>
+		-->
         <!-- AsyncRoot - 异步记录日志 - 需要LMAX Disruptor的支持 -->
         <AsyncRoot level="info" additivity="false">
             <AppenderRef ref="console"/>
