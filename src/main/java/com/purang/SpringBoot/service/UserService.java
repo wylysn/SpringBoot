@@ -1,6 +1,11 @@
 package com.purang.SpringBoot.service;
 
+import java.util.concurrent.TimeUnit;
+
+import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -10,6 +15,8 @@ import com.purang.SpringBoot.annotation.ReadDataSource;
 import com.purang.SpringBoot.annotation.WriteDataSource;
 import com.purang.SpringBoot.dao.UserDao;
 import com.purang.SpringBoot.domain.UserEntity;
+import com.purang.SpringBoot.utils.MD5Util;
+import com.purang.SpringBoot.utils.MyLogger;
 import com.purang.SpringBoot.utils.SpringContextUtil;
 
 /** 
@@ -28,6 +35,9 @@ import com.purang.SpringBoot.utils.SpringContextUtil;
 public class UserService {
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+    private RedisTemplate redisTemplate;
 	
 	@WriteDataSource
 	@Transactional(propagation=Propagation.REQUIRED,isolation=Isolation.DEFAULT,readOnly=false)
@@ -62,7 +72,30 @@ public class UserService {
 	
 	@ReadDataSource
 	public UserEntity findById(Long id){
+		String key = MD5Util.textToMD5L32("user_"+id);
+		ValueOperations<String, UserEntity> operations = redisTemplate.opsForValue();
+		
+		//缓存存在
+		boolean haskey = redisTemplate.hasKey(key);
+		if (haskey) {
+			UserEntity userEntity = operations.get(key);
+			MyLogger.info("UserService.findById():从redis缓存中获取了用户 >> "+userEntity.toString());
+			return userEntity;
+		}
+		
 		UserEntity u = this.userDao.getOne(id);
+		
+		//插入缓存
+		operations.set(key, u, 10, TimeUnit.MINUTES);
+		
+		return u;
+	}
+	
+	@ReadDataSource
+	public UserEntity findByUserName(String userName){
+		
+		UserEntity u = this.userDao.getUserByName(userName);
+		
 		return u;
 	}
 	

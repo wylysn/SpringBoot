@@ -2,6 +2,8 @@ package com.purang.SpringBoot.dao;
 
 import java.util.List;
 
+import org.assertj.core.error.ShouldBeEqualToIgnoringFields;
+
 import com.purang.SpringBoot.domain.UserEntity;
 
 /**
@@ -13,6 +15,8 @@ public interface UserDao {
 	List<UserEntity> getAll();
 	
 	UserEntity getOne(Long id);
+	
+	UserEntity getUserByName(String username);
 
 	void insert(UserEntity user);
 

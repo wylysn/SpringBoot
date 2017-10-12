@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -33,6 +34,7 @@ import com.purang.SpringBoot.utils.SpringContextUtil;
 @Configuration
 @AutoConfigureAfter(DataSourceConfiguration.class)
 @MapperScan(basePackages = "com.purang.SpringBoot.dao")
+@Order(1)
 public class MybatisConfiguration {
 
 	@Value("${mysql.datasource.readSize}")
@@ -61,7 +63,7 @@ public class MybatisConfiguration {
 
 	@Bean(name = "sqlSessionFactory")
 	public SqlSessionFactory sqlSessionFactorys() throws Exception {
-		MyLogger.info("--------------------  sqlSessionFactory init ---------------------");
+		System.err.println("--------------------  sqlSessionFactory init ---------------------");
 		try {
 			SqlSessionFactoryBean sessionFactoryBean = new SqlSessionFactoryBean();
 			// sessionFactoryBean.setDataSource(roundRobinDataSouce);

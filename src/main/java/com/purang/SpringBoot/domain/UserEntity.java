@@ -1,6 +1,7 @@
 package com.purang.SpringBoot.domain;
 
 import java.io.Serializable;
+import java.util.List;
 
 import com.purang.SpringBoot.enums.UserSexEnum;
 
@@ -11,6 +12,7 @@ public class UserEntity implements Serializable {
 	private String passWord;
 	private UserSexEnum userSex;
 	private String nickName;
+	private List<SysRole> roleList;
 
 	public UserEntity() {
 		super();
@@ -62,10 +64,18 @@ public class UserEntity implements Serializable {
 	public void setNickName(String nickName) {
 		this.nickName = nickName;
 	}
+	
+	public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
 
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "userName " + this.userName + ", pasword " + this.passWord + "sex " + userSex.name();
+		return "userName:" + this.userName + ", pasword:" + this.passWord + ", sex:" + userSex.name();
 	}
 }
