@@ -84,12 +84,6 @@ public class HomeController {
         
     }
 
-    @RequestMapping("/error/403")
-    public String unauthorizedRole(){
-        System.out.println("------没有权限-------");
-        return "/error/403";
-    }
-
     @RequestMapping("/logOut")
     public String logOut(HttpServletRequest request, Map<String, Object> map) {
         Subject subject = SecurityUtils.getSubject();

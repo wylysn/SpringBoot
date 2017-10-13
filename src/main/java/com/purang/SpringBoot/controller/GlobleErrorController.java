@@ -47,6 +47,22 @@ public class GlobleErrorController implements ErrorController {
 		data.setData("");
         return data;
     }
+
+	@RequestMapping(produces="text/html", value="403")
+    public String unauthorizedRoleHtml(){
+        return "error/403";
+    }
+
+	@RequestMapping(value="403")
+	@ResponseBody
+    public ResponseData unauthorizedRole(HttpServletRequest request) {
+		ResponseData data = new ResponseData();
+		data.setCode("403");
+		data.setSuccess("false");
+		data.setMsg("未授权!");
+		data.setData("");
+        return data;
+    }
 	
 	@RequestMapping(produces="text/html", value="500")
     public String serverError() {

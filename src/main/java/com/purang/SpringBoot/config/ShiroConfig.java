@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.shiro.mgt.SecurityManager;
+import org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.session.mgt.DefaultWebSessionManager;
@@ -41,6 +42,8 @@ public class ShiroConfig {
 		//配置登录的url和登录成功的url
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		shiroFilterFactoryBean.setSuccessUrl("/index");
+		//未授权界面;
+		shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
         //配置访问权限
         LinkedHashMap<String, String> filterChainDefinitionMap=new LinkedHashMap<>();
         /*
@@ -59,10 +62,6 @@ public class ShiroConfig {
             filterChainDefinitionMap.put(sysPermissionInit.getUrl(), sysPermissionInit.getPermissionInit());
         }
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
-        
-		//未授权界面;
-		shiroFilterFactoryBean.setUnauthorizedUrl("/error/403");
-		shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilterFactoryBean;
 	}
 	
@@ -73,7 +72,7 @@ public class ShiroConfig {
         DefaultWebSecurityManager manager=new DefaultWebSecurityManager();
         manager.setRealm(authRealm);
         // 自定义缓存实现 使用redis
-//        manager.setCacheManager(cacheManager());
+        manager.setCacheManager(cacheManager());
         // 自定义session管理 使用redis
 //        manager.setSessionManager(SessionManager());
         return manager;
@@ -150,17 +149,20 @@ public class ShiroConfig {
 //    }
     
 	/**
-	 *  开启shiro aop注解支持.
+	 *  开启shiro aop注解支持.Controller才能使用@RequiresPermissions，否则路径拦截不会成功
+	 *  如： @RequestMapping("/userAdd")
+    	 *		@RequiresPermissions("userInfo:add")//权限管理;
 	 *  使用代理方式;所以需要开启代码支持;
 	 * @param securityManager
 	 * @return
+	 * 
 	 */
-//    @Bean
-//    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("securityManager") SecurityManager manager) {
-//        AuthorizationAttributeSourceAdvisor advisor=new AuthorizationAttributeSourceAdvisor();
-//        advisor.setSecurityManager(manager);
-//        return advisor;
-//    }
+    @Bean
+    public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(@Qualifier("securityManager") SecurityManager manager) {
+        AuthorizationAttributeSourceAdvisor advisor=new AuthorizationAttributeSourceAdvisor();
+        advisor.setSecurityManager(manager);
+        return advisor;
+    }
 
 //	/**
 //	 * 凭证匹配器

@@ -13,7 +13,7 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping("/userList")
-    @RequiresPermissions("userInfo:view")//权限管理;
+    @RequiresPermissions("perms[userInfo:view]")//权限管理;
     public String userInfo(){
         return "user/userInfo";
     }
@@ -23,7 +23,7 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping("/userAdd")
-    @RequiresPermissions("userInfo:add")//权限管理;
+    @RequiresPermissions("perms[userInfo:add]")//权限管理;
     public String userInfoAdd(){
         return "user/userInfoAdd";
     }
@@ -33,7 +33,7 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping("/userDel")
-    @RequiresPermissions("userInfo:del")//权限管理;
+    @RequiresPermissions("perms[userInfo:del]")//权限管理;
     public String userDel(){
         return "user/userInfoDel";
     }
