@@ -43,4 +43,23 @@ INSERT INTO `sys_role_permission` (`role_id`,`permission_id`) VALUES (1,2);
 INSERT INTO `sys_user_role` (`role_id`,`uid`) VALUES (1,40);
 INSERT INTO `sys_user_role` (`role_id`,`uid`) VALUES (2,40);
 
+-- ----------------------------
+-- Table structure for sys_permission_init
+-- ----------------------------
+DROP TABLE IF EXISTS `sys_permission_init`;
+CREATE TABLE `sys_permission_init` (
+  `id` varchar(255) NOT NULL,
+  `url` varchar(255) DEFAULT NULL COMMENT '链接地址',
+  `permission_init` varchar(255) DEFAULT NULL COMMENT '需要具备的权限',
+  `sort` int(50) DEFAULT NULL COMMENT '排序',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('1','/login*','anon',1);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('2','/loginUser','anon',2);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('3','/logout*','anon',3);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('4','/error/*','anon',4);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('5','/index*','authc',5);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('6','/*','authc',6);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('7','/**','authc',7);
+INSERT INTO `sys_permission_init` (`id`,`url`,`permission_init`,`sort`) VALUES ('8','/*.*','authc',8);
